@@ -1,2 +1,8 @@
-venv/
-.vscode/
+# dirs
+/venv
+/.vscode
+/__pycache__
+
+
+# files
+/yourpyfile
