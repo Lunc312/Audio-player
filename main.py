@@ -1,4 +1,4 @@
-import MainWindow as mv
+from MainWindow import QtWidgets, Ui_Dialog
 
 
 def qq():
@@ -7,9 +7,9 @@ def qq():
 
 if __name__ == "__main__":
     import sys
-    app = mv.QtWidgets.QApplication(sys.argv)
-    MyMainWindow = mv.QtWidgets.QMainWindow()
-    ui = mv.Ui_Dialog()
+    app = QtWidgets.QApplication(sys.argv)
+    MyMainWindow = QtWidgets.QMainWindow()
+    ui = Ui_Dialog()
     ui.setupUi(MyMainWindow)
     ui.pushButton.clicked.connect(qq)
     MyMainWindow.show()
