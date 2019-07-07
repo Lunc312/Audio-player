@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Programming\Python\PyQt5\Audio-player\MainWindow.ui'
+# Form implementation generated from reading ui file 'd:\plena\Audio-player\MainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
