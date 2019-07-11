@@ -5,8 +5,14 @@ Vovchik And Lenchik
 
 ***
 
+<style>
+    .spaces li{
+        padding-top: 20px;
+    }
+</style>
+
 ### To do:
-<ol type="1">
+<ol type="1" class="spaces">
     <li>
         <s>Для ui использовать pyqt5.</s>
     </li>
