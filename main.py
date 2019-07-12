@@ -12,9 +12,9 @@ class mywindow(QtWidgets.QDialog):
         self.ui.setupUi(self)
 
     def show_dialog(self):
-        filename = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
+        path_to_folder = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
 
-        print(songs.get_songs_list(filename))
+        print(songs.get_songs_list(path_to_folder))
 
 
 app = QtWidgets.QApplication([])
