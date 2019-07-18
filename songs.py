@@ -5,7 +5,8 @@
 
 import os
 import glob
-
+import playsound
+from playsound import playsound
 
 
 def get_songs_list(folder, key='*.mp3') -> list:
@@ -31,6 +32,11 @@ def get_songs_list(folder, key='*.mp3') -> list:
     return songs_list
 
 
-def play_song(song):
+def play_song(path):
     """Воспроизводит песню."""
-    pass
+    playsound(path)
+
+
+def stop_song(path):
+    """Останавливает песню."""
+    return 0
