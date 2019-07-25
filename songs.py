@@ -4,8 +4,8 @@
 """
 
 import os
-import glob
 import winsound
+from os.path import isfile, join, normpath
 
 
 def get_songs_list(folder, key='*.mp3') -> list:
@@ -16,14 +16,13 @@ def get_songs_list(folder, key='*.mp3') -> list:
     """
     # Если folder не указывает на папку,
     # тогда возвращаем пустой лист!
-    if not os.path.isdir(folder):
+    if isfile(folder):
         return []
 
     songs_list = []
 
     try:
-        for songname in glob.glob(os.path.join(folder, key)):
-            songs_list.append(songname)
+        songs_list = [join(normpath(folder), f) for f in os.listdir(folder) if '.mp3' in f]
     except:
         print("Что-то пошло не так!")
         return []
