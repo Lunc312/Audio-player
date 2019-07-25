@@ -5,8 +5,7 @@
 
 import os
 import glob
-import playsound
-from playsound import playsound
+import winsound
 
 
 def get_songs_list(folder, key='*.mp3') -> list:
@@ -34,7 +33,7 @@ def get_songs_list(folder, key='*.mp3') -> list:
 
 def play_song(path):
     """Воспроизводит песню."""
-    playsound(path)
+    winsound.PlaySound(path, winsound.SND_ASYNC | winsound.SND_ALIAS)
 
 
 def stop_song(path):

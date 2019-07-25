@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Programming\Python\Qt5\audio-player\MainWindow.ui'
+# Form implementation generated from reading ui file 'd:\Programming\Python\Qt5\Audio-player\MainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -37,9 +37,9 @@ class Ui_Dialog(object):
         self.pushButton_openf = QtWidgets.QPushButton(Dialog)
         self.pushButton_openf.setObjectName("pushButton_openf")
         self.horizontalLayout_topMenu.addWidget(self.pushButton_openf)
-        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_topMenu.addWidget(self.pushButton_2)
+        self.pushButton_playSound = QtWidgets.QPushButton(Dialog)
+        self.pushButton_playSound.setObjectName("pushButton_playSound")
+        self.horizontalLayout_topMenu.addWidget(self.pushButton_playSound)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_topMenu.addItem(spacerItem)
         self.pushButton_3 = QtWidgets.QPushButton(Dialog)
@@ -55,6 +55,6 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "Тут будет картинка альбома"))
         self.pushButton_openf.setText(_translate("Dialog", "Открыть папку"))
-        self.pushButton_2.setText(_translate("Dialog", "PushButton"))
+        self.pushButton_playSound.setText(_translate("Dialog", "Play"))
         self.pushButton_3.setText(_translate("Dialog", "PushButton"))
 
