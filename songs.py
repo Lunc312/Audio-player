@@ -5,8 +5,8 @@
 
 import os
 import glob
-import playsound
-from playsound import playsound
+import pygame
+from pygame import mixer
 
 
 def get_songs_list(folder, key='*.mp3') -> list:
@@ -34,9 +34,11 @@ def get_songs_list(folder, key='*.mp3') -> list:
 
 def play_song(path):
     """Воспроизводит песню."""
-    playsound(path)
+    mixer.init()
+    mixer.music.load(path)
+    mixer.music.play()
 
 
-def stop_song(path):
+def stop_song():
     """Останавливает песню."""
-    return 0
+    mixer.music.stop()
