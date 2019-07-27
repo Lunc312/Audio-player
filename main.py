@@ -23,15 +23,6 @@ application.ui.pushButton_openf.clicked.connect(application.show_dialog)
 application.show()
 
 sys.exit(app.exec())
-# if __name__ == "__main__":
-#     import sys
-#     app = QtWidgets.QApplication(sys.argv)
-#     MyMainWindow = QtWidgets.QMainWindow()
-#     ui = Ui_Dialog()
-#     ui.setupUi(MyMainWindow)
-#     ui.pushButton_openf.clicked.connect(qq)
-#     MyMainWindow.show()
-#     sys.exit(app.exec_())
 
 
 
