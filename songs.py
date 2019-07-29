@@ -2,16 +2,14 @@
 и директориями в которых они находятся.
 
 """
-
-# import os
-import glob
+import os
+from os.path import isfile, join, normpath
 import pygame
 from pygame import mixer
 
 pygame.init()
 mixer.init()
 current_track = 0
->>>>>>> develop
 
 
 def get_songs_list(folder, key='*.mp3') -> list:
@@ -29,8 +27,9 @@ def get_songs_list(folder, key='*.mp3') -> list:
 
     try:
         songs_list = [join(normpath(folder), f) for f in os.listdir(folder) if '.mp3' in f]
-    except:
+    except Exception as e:
         print("Что-то пошло не так!")
+        print(type(e))
         return []
 
     return songs_list
@@ -72,7 +71,6 @@ def song_next(songs_list):
     tracks_number = len(songs_list)
     current_track = (current_track + 1) % tracks_number
     play_song(songs_list)
->>>>>>> develop
 
 
 def song_previous(songs_list):
