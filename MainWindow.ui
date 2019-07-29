@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>729</width>
-    <height>484</height>
+    <height>483</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <bool>false</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="1" alignment="Qt::AlignRight">
+   <item row="5" column="1" alignment="Qt::AlignRight">
     <widget class="QListView" name="listView_songs"/>
    </item>
-   <item row="1" column="0">
+   <item row="5" column="0">
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
@@ -54,9 +54,23 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_playSound">
+      <widget class="QPushButton" name="pushButton_play">
        <property name="text">
-        <string>Play</string>
+        <string>Воспроизвести песни из папки</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_previous">
+       <property name="text">
+        <string>Предыдущая</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_next">
+       <property name="text">
+        <string>Следующая</string>
        </property>
       </widget>
      </item>
@@ -74,9 +88,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="pushButton_stop">
        <property name="text">
-        <string>PushButton</string>
+        <string>Pause/Unpause</string>
        </property>
       </widget>
      </item>
