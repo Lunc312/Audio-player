@@ -40,19 +40,17 @@ def play_song(songs_list):
     global current_track
     tracks_number = len(songs_list)
     NEXT = pygame.USEREVENT + 1
-    mixer.music.set_endevent(NEXT) 
+    mixer.music.set_endevent(NEXT)
     mixer.music.load(songs_list[current_track])
     mixer.music.play()
-    
+
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == NEXT:
                 current_track = (current_track + 1) % tracks_number
-                mixer.music.load ( songs_list[current_track] )
+                mixer.music.load(songs_list[current_track])
                 mixer.music.play()
-
-
 
 
 class Pause:
@@ -67,7 +65,7 @@ class Pause:
 
 
 def song_next(songs_list):
-    global current_track 
+    global current_track
     tracks_number = len(songs_list)
     current_track = (current_track + 1) % tracks_number
     play_song(songs_list)
@@ -78,3 +76,9 @@ def song_previous(songs_list):
     tracks_number = len(songs_list)
     current_track = (current_track - 1) % tracks_number
     play_song(songs_list)
+
+def exit_from_player():
+    """Закрывает плеер. Метод необходимо присоединить
+    к событию CloseWindow."""
+    # Но я пока не понял как. Fix it!!!!!
+    pygame.quit()

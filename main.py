@@ -6,7 +6,11 @@ import songs
 
 
 class mywindow(QtWidgets.QDialog):
-    alist=[]
+    # Список путей к трекам
+    alist = []
+    # Была нажата кнопка play и музыка играет? True-  Да, False - Нет
+    playing:bool = False
+
     def __init__(self):
         super(mywindow, self).__init__()
         self.ui = Ui_Dialog()
@@ -14,28 +18,39 @@ class mywindow(QtWidgets.QDialog):
 
     def show_dialog(self):
         path_to_folder = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
-        mywindow.alist=songs.get_songs_list(path_to_folder)
+        self.alist = songs.get_songs_list(path_to_folder)
 
-        print (mywindow.alist)
+        print (self.alist)
 
     def play(self):
-        songs.play_song(mywindow.alist)
+        # Если список не пустой и песни не играют
+        if (self.alist != []) & (not self.playing):
+            self.playing = True
+            songs.play_song(self.alist)
 
-    def stop(self):
-        songs.Pause.toggle()
+
+    def pause_unpause(self):
+        # Если список не пустой
+        if (self.alist != []):
+            self.playing = False
+            songs.Pause.toggle()
 
     def next(self):
-        songs.song_next(mywindow.alist)
+        if self.alist != []:
+            self.playing = True
+            songs.song_next(self.alist)
 
     def previous(self):
-        songs.song_previous(mywindow.alist)
+        if self.alist != []:
+            self.playing = True
+            songs.song_previous(self.alist)
 
 
 app = QtWidgets.QApplication([])
 application = mywindow()
 application.ui.pushButton_openf.clicked.connect(application.show_dialog)
 application.ui.pushButton_play.clicked.connect(application.play)
-application.ui.pushButton_stop.clicked.connect(application.stop)
+application.ui.pushButton_stop.clicked.connect(application.pause_unpause)
 application.ui.pushButton_next.clicked.connect(application.next)
 application.ui.pushButton_previous.clicked.connect(application.previous)
 application.show()
