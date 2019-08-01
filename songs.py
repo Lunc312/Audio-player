@@ -14,25 +14,31 @@ current_track = 0
 
 def get_songs_list(folder, key='*.mp3') -> list:
     """Возвращает список песен.
-    Список состоит из полных путей к каждой песне,
-    находящейся в директории folder.
+    Список состоит из двух списков: список полных путей
+    и список имен песен, находящихся в директории folder.
 
     """
     # Если folder не указывает на папку,
     # тогда возвращаем пустой лист!
     if isfile(folder):
-        return []
+        return [[],[]]
 
-    songs_list = []
+    songs_paths = []
+    songs_names = []
 
     try:
-        songs_list = [join(normpath(folder), f) for f in os.listdir(folder) if '.mp3' in f]
+        for f in os.listdir(folder):
+            if '.mp3' in f:
+                # Записываем путь
+                songs_paths.append(join(normpath(folder), f))
+                # Записываем имя
+                songs_names.append(f)
     except Exception as e:
         print("Что-то пошло не так!")
         print(type(e))
-        return []
+        return [[],[]]
 
-    return songs_list
+    return [songs_paths, songs_names]
 
 
 def play_song(songs_list):

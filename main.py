@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from MainWindow import Ui_Dialog
 import sys
 
@@ -8,6 +8,8 @@ import songs
 class mywindow(QtWidgets.QDialog):
     # Список путей к трекам
     alist = []
+    # Список названий песен
+    songs_names = []
     # Была нажата кнопка play и музыка играет? True-  Да, False - Нет
     playing:bool = False
 
@@ -18,9 +20,18 @@ class mywindow(QtWidgets.QDialog):
 
     def show_dialog(self):
         path_to_folder = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
-        self.alist = songs.get_songs_list(path_to_folder)
+        self.alist, self.songs_names = songs.get_songs_list(path_to_folder)
 
         print (self.alist)
+
+        # Создаём модель данных для ListView
+        model = QtGui.QStandardItemModel()
+        self.ui.listView_songs.setModel(model)
+
+        # Добавляем данные в модель
+        for song in self.songs_names:
+            item = QtGui.QStandardItem(song)
+            model.appendRow(item)
 
     def play(self):
         # Если список не пустой и песни не играют
