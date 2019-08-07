@@ -10,7 +10,7 @@ from pygame import mixer
 pygame.init()
 mixer.init()
 current_track = 0
-
+running = True
 
 def get_songs_list(folder, key='*.mp3') -> list:
     """Возвращает список песен.
@@ -50,6 +50,7 @@ def play_song(songs_list):
     mixer.music.load(songs_list[current_track])
     mixer.music.play()
 
+    global running
     running = True
     while running:
         for event in pygame.event.get():
@@ -57,6 +58,8 @@ def play_song(songs_list):
                 current_track = (current_track + 1) % tracks_number
                 mixer.music.load(songs_list[current_track])
                 mixer.music.play()
+            if event.type == pygame.QUIT:
+                running = False
 
 
 class Pause:
@@ -83,8 +86,10 @@ def song_previous(songs_list):
     current_track = (current_track - 1) % tracks_number
     play_song(songs_list)
 
-def exit_from_player():
-    """Закрывает плеер. Метод необходимо присоединить
-    к событию CloseWindow."""
-    # Но я пока не понял как. Fix it!!!!!
-    pygame.quit()
+def stop_playback():
+    """Stop playback of all sound channels.
+    This will stop all playback of all active mixer channels."""
+
+    running = False
+    mixer.music.set_endevent(pygame.QUIT)
+    pygame.mixer.music.stop()

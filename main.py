@@ -56,6 +56,16 @@ class mywindow(QtWidgets.QDialog):
             self.playing = True
             songs.song_previous(self.alist)
 
+    def closeEvent(self, event):
+        # Закрываем(убиваем процесс) плеер pygame.mixer
+        songs.stop_playback()
+        can_exit = True
+        if can_exit:
+            event.accept() # Let the window close
+        else:
+            event.ignore()
+
+
 
 app = QtWidgets.QApplication([])
 application = mywindow()
