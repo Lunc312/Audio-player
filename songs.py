@@ -33,6 +33,8 @@ def get_songs_list(folder, key='*.mp3') -> list:
                 songs_paths.append(join(normpath(folder), f))
                 # Записываем имя
                 songs_names.append(f)
+    except FileNotFoundError:
+        print('\nФайлы не найдены.\n')
     except Exception as e:
         print("Что-то пошло не так!")
         print(type(e))
