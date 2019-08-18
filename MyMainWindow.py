@@ -50,6 +50,7 @@ class Ui_MainWindow(object):
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icons/control-pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_pause.setIcon(icon1)
+        self.pushButton_pause.setCheckable(True)
         self.pushButton_pause.setObjectName("pushButton_pause")
         self.horizontalLayout.addWidget(self.pushButton_pause)
         self.pushButton_play = QtWidgets.QPushButton(self.centralwidget)

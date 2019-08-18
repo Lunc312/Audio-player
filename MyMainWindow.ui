@@ -93,6 +93,9 @@ Soon...</string>
          <iconset>
           <normaloff>icons/control-pause.png</normaloff>icons/control-pause.png</iconset>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>

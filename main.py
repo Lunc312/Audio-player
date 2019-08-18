@@ -55,7 +55,7 @@ class MyWindow(QMainWindow):
     def play(self):
         # Если список не пустой и песни не играют
         if (self.alist != []) & (not self.playing):
-            self.playing = True
+            self.start_playing()
             songs.play_song(self.alist)
 
 
@@ -67,12 +67,14 @@ class MyWindow(QMainWindow):
 
     def next(self):
         if self.alist != []:
-            self.playing = True
+            # Сразу воспроизводится
+            self.start_playing()
             songs.song_next(self.alist)
 
     def previous(self):
         if self.alist != []:
-            self.playing = True
+            # Сразу воспроизводится
+            self.start_playing()
             songs.song_previous(self.alist)
 
     def closeEvent(self, event):
@@ -83,6 +85,13 @@ class MyWindow(QMainWindow):
             event.accept() # Let the window close
         else:
             event.ignore()
+
+    def start_playing(self):
+        self.playing = True
+        # Если до этого была нажата кнопка паузы - отжимаем её
+        if self.ui.pushButton_pause.isChecked():
+            self.ui.pushButton_pause.toggle()
+            songs.Pause.toggle()
 
 
 
