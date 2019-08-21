@@ -23,8 +23,9 @@ class MyWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # Подключаем к menuBar функцию???
-        self.ui.menuOpen.triggered.connect(self.show_dialog)
+        # Подключаем к QAction функцию и hotkey???
+        self.ui.actionOpen_Directory.triggered.connect(self.show_dialog)
+        self.ui.actionOpen_Directory.setShortcut( QKeySequence("Ctrl+o") )
 
         # Подключаем к слотам кнопок функции
         self.ui.pushButton_play.clicked.connect(self.play)
