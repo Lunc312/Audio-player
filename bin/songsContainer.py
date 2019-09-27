@@ -29,7 +29,7 @@ class ListOfSongs(Pickler):
     def len(self):
         return len(self.songsPaths)
     def getTrack(self, index=None):
-        index = index or self.currentTrack
+        if index == None: index = self.currentTrack
         return self.songsPaths[index], self.getSongsNames()[index]
 
     def save(self, dataFile="playlist"):
