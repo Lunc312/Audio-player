@@ -4,10 +4,14 @@ class PlayerSettings(Pickler):
     def __init__(self, volume=0.5):
         self.volume = volume
     def volumeUp(self, value):
-        if value >= 0:
+        if value in (100, 0):
+            self.volume = value
+        if value > 0:
             self.volume = value % 100
     def volumeDown(self, value):
-        if value >= 0:
+        if value in (100, 0):
+            self.volume = value
+        if value > 0:
             self.volume = value % 100
     def getVolume(self):
         return self.volume
