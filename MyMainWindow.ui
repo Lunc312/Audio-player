@@ -166,11 +166,35 @@ Soon...</string>
     </property>
     <addaction name="actionOpen_Directory"/>
    </widget>
+   <widget class="QMenu" name="menuSave">
+    <property name="title">
+     <string>Save..</string>
+    </property>
+    <addaction name="actionSave_current_AudioPlayer"/>
+   </widget>
+   <widget class="QMenu" name="menuLoad">
+    <property name="title">
+     <string>Load</string>
+    </property>
+    <addaction name="actionLoad_AudioPlayer"/>
+   </widget>
    <addaction name="menuOpen"/>
+   <addaction name="menuSave"/>
+   <addaction name="menuLoad"/>
   </widget>
   <action name="actionOpen_Directory">
    <property name="text">
     <string>Open Directory</string>
+   </property>
+  </action>
+  <action name="actionSave_current_AudioPlayer">
+   <property name="text">
+    <string>Save current AudioPlayer</string>
+   </property>
+  </action>
+  <action name="actionLoad_AudioPlayer">
+   <property name="text">
+    <string>Load AudioPlayer</string>
    </property>
   </action>
  </widget>

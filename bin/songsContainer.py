@@ -1,15 +1,22 @@
-from os.path import split
+import os
+from os.path import split, join, isdir, isfile
 from bin.pickleClass import Pickler
 
-class ListOfSongs(Pickler):
+class PlayList(Pickler):
     def __init__(self, songsPaths=[]):
         self.songsPaths = songsPaths.copy()
         self.currentTrack = 0
     def append(self, newSong):
-        self.songsPaths.append(newSong)
+        if isfile(newSong):
+            self.songsPaths.append(newSong)
+        else:
+            print("Неверно указанный файл ", newSong)
     def extend(self, iterableObj):
         self.songsPaths.extend(iterableObj)
     def add(self, newSongs):
+        if isdir(newSongs):
+            self.addSongsFromPath(newSongs)
+            return
         newSongs = list(newSongs)
         if len(newSongs) > 1:
             self.extend(newSongs)
@@ -26,6 +33,9 @@ class ListOfSongs(Pickler):
             if tail:
                 names.append(tail)
         return names
+    def addSongsFromPath(self, path):
+        songsPaths = [join(path, sp) for sp in os.listdir(path=path) if ".mp3" in sp]
+        self.songsPaths.extend(songsPaths)
     def len(self):
         return len(self.songsPaths)
     def getTrack(self, index=None):

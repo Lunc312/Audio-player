@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Programming\Python\Qt5\Audio-player\MyMainWindow.ui'
+# Form implementation generated from reading ui file 'd:\Programming\Python\PyQt5\Audio-player\MyMainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -86,11 +86,23 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName("menubar")
         self.menuOpen = QtWidgets.QMenu(self.menubar)
         self.menuOpen.setObjectName("menuOpen")
+        self.menuSave = QtWidgets.QMenu(self.menubar)
+        self.menuSave.setObjectName("menuSave")
+        self.menuLoad = QtWidgets.QMenu(self.menubar)
+        self.menuLoad.setObjectName("menuLoad")
         MainWindow.setMenuBar(self.menubar)
         self.actionOpen_Directory = QtWidgets.QAction(MainWindow)
         self.actionOpen_Directory.setObjectName("actionOpen_Directory")
+        self.actionSave_current_AudioPlayer = QtWidgets.QAction(MainWindow)
+        self.actionSave_current_AudioPlayer.setObjectName("actionSave_current_AudioPlayer")
+        self.actionLoad_AudioPlayer = QtWidgets.QAction(MainWindow)
+        self.actionLoad_AudioPlayer.setObjectName("actionLoad_AudioPlayer")
         self.menuOpen.addAction(self.actionOpen_Directory)
+        self.menuSave.addAction(self.actionSave_current_AudioPlayer)
+        self.menuLoad.addAction(self.actionLoad_AudioPlayer)
         self.menubar.addAction(self.menuOpen.menuAction())
+        self.menubar.addAction(self.menuSave.menuAction())
+        self.menubar.addAction(self.menuLoad.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -105,5 +117,9 @@ class Ui_MainWindow(object):
         self.pushButton_play.setText(_translate("MainWindow", "Play"))
         self.pushButton_next.setText(_translate("MainWindow", "Next"))
         self.menuOpen.setTitle(_translate("MainWindow", "Open.."))
+        self.menuSave.setTitle(_translate("MainWindow", "Save.."))
+        self.menuLoad.setTitle(_translate("MainWindow", "Load"))
         self.actionOpen_Directory.setText(_translate("MainWindow", "Open Directory"))
+        self.actionSave_current_AudioPlayer.setText(_translate("MainWindow", "Save current AudioPlayer"))
+        self.actionLoad_AudioPlayer.setText(_translate("MainWindow", "Load AudioPlayer"))
 

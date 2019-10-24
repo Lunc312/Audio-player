@@ -3,16 +3,15 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 from MyMainWindow import Ui_MainWindow
+from bin.audioPlayer import AudioPlayer
 import sys
 
 import songs
 
 
 class MyWindow(QMainWindow):
-    # Список путей к трекам
-    alist = []
-    # Список названий песен
-    songs_names = []
+    # Плеер: список песен, настройки, логика работы
+    player = AudioPlayer()
     # Была нажата кнопка play и музыка играет? True - Да, False - Нет
     playing:bool = False
 
@@ -25,33 +24,27 @@ class MyWindow(QMainWindow):
 
         # Подключаем к QAction функцию и hotkey???
         self.ui.actionOpen_Directory.triggered.connect(self.show_dialog)
+        self.ui.actionSave_current_AudioPlayer.triggered.connect(self.savePlayer)
+        self.ui.actionLoad_AudioPlayer.triggered.connect(self.loadPlayer)
+
         self.ui.actionOpen_Directory.setShortcut( QKeySequence("Ctrl+o") )
 
         # Подключаем к слотам кнопок функции
-        self.ui.pushButton_play.clicked.connect(self.play)
-        self.ui.pushButton_pause.clicked.connect(self.pause_unpause)
-        self.ui.pushButton_next.clicked.connect(self.next)
-        self.ui.pushButton_previous.clicked.connect(self.previous)
+        self.ui.pushButton_play.clicked.connect(MyWindow.player.play)
+        self.ui.pushButton_pause.clicked.connect(MyWindow.player.pause)
+        self.ui.pushButton_next.clicked.connect(MyWindow.player.next)
+        self.ui.pushButton_previous.clicked.connect(MyWindow.player.previous)
 
     def show_dialog(self):
-        result = str(QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
+        songspaths = str(QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
 
         # При отмене диалога, результатом будет пустая строка
-        if result == '':
+        if songspaths == '':
             return
 
-        self.alist, self.songs_names = songs.get_songs_list(result)
+        MyWindow.player.addNewSongs(songspaths)
 
-        print(self.alist)
-
-        # Создаём модель данных для ListView
-        model = QStandardItemModel()
-        self.ui.listView_songs.setModel(model)
-
-        # Добавляем данные в модель
-        for song in self.songs_names:
-            item = QStandardItem(song)
-            model.appendRow(item)
+        self.updateList()
 
     def play(self):
         # Если список не пустой и песни не играют
@@ -93,6 +86,23 @@ class MyWindow(QMainWindow):
         if self.ui.pushButton_pause.isChecked():
             self.ui.pushButton_pause.toggle()
             songs.Pause.toggle()
+
+    def updateList(self):
+        # Создаём модель данных для ListView
+        model = QStandardItemModel()
+        self.ui.listView_songs.setModel(model)
+
+        # Добавляем данные в модель
+        for song in MyWindow.player.currentList.getSongsNames():
+            item = QStandardItem(song)
+            model.appendRow(item)
+
+    def savePlayer(self):
+        MyWindow.player.savePlayList()
+
+    def loadPlayer(self):
+        MyWindow.player.loadPlayList()
+        self.updateList()
 
 
 
