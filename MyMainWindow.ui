@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>954</width>
-    <height>606</height>
+    <width>1067</width>
+    <height>688</height>
    </rect>
   </property>
   <property name="font">
@@ -129,7 +129,7 @@ Soon...</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>954</width>
+     <width>1067</width>
      <height>23</height>
     </rect>
    </property>
@@ -156,13 +156,13 @@ Soon...</string>
     <property name="title">
      <string>Save..</string>
     </property>
-    <addaction name="actionSave_current_AudioPlayer"/>
+    <addaction name="action_save_playlist"/>
    </widget>
    <widget class="QMenu" name="menuLoad">
     <property name="title">
      <string>Load</string>
     </property>
-    <addaction name="actionLoad_AudioPlayer"/>
+    <addaction name="action_load_last_playlist"/>
    </widget>
    <addaction name="menuOpen"/>
    <addaction name="menuSave"/>
@@ -173,14 +173,14 @@ Soon...</string>
     <string>Open Directory</string>
    </property>
   </action>
-  <action name="actionSave_current_AudioPlayer">
+  <action name="action_save_playlist">
    <property name="text">
-    <string>Save current AudioPlayer</string>
+    <string>Save play list</string>
    </property>
   </action>
-  <action name="actionLoad_AudioPlayer">
+  <action name="action_load_last_playlist">
    <property name="text">
-    <string>Load AudioPlayer</string>
+    <string>Load last saved play list</string>
    </property>
   </action>
  </widget>
