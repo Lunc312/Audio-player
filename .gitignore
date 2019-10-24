@@ -1,0 +1,16 @@
+# dirs
+/.idea
+/venv
+/.vscode
+**/__pycache__
+**/config/*
+
+
+# files
+/yourpyfile
+bash.exe.stackdump
+extension-output-*.py
+test_main.py
+
+# exception to the rule
+!**/config/.gitkeep
