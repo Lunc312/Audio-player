@@ -3,17 +3,15 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 from MyMainWindow import Ui_MainWindow
+from bin.audioPlayer import AudioPlayer
 import sys
 
 import songs
 
 
-<<<<<<< HEAD
 class MyWindow(QMainWindow):
-    # Список путей к трекам
-    alist = []
-    # Список названий песен
-    songs_names = []
+    # Плеер: список песен, настройки, логика работы
+    player = AudioPlayer()
     # Была нажата кнопка play и музыка играет? True - Да, False - Нет
     playing:bool = False
 
@@ -22,93 +20,50 @@ class MyWindow(QMainWindow):
 
         # Прикрепляем макет из Qt Designer
         self.ui = Ui_MainWindow()
-=======
-class mywindow(QtWidgets.QDialog):
-    # Список путей к трекам
-    alist = []
-    # Была нажата кнопка play и музыка играет? True-  Да, False - Нет
-    playing:bool = False
-
-    def __init__(self):
-        super(mywindow, self).__init__()
-        self.ui = Ui_Dialog()
->>>>>>> play-sound-realisation
         self.ui.setupUi(self)
 
         # Подключаем к QAction функцию и hotkey???
         self.ui.actionOpen_Directory.triggered.connect(self.show_dialog)
+        self.ui.actionSave_current_AudioPlayer.triggered.connect(self.savePlayer)
+        self.ui.actionLoad_AudioPlayer.triggered.connect(self.loadPlayer)
+
         self.ui.actionOpen_Directory.setShortcut( QKeySequence("Ctrl+o") )
 
         # Подключаем к слотам кнопок функции
-        self.ui.pushButton_play.clicked.connect(self.play)
-        self.ui.pushButton_pause.clicked.connect(self.pause_unpause)
-        self.ui.pushButton_next.clicked.connect(self.next)
-        self.ui.pushButton_previous.clicked.connect(self.previous)
+        self.ui.pushButton_play.clicked.connect(self.playStart)
+        self.ui.pushButton_next.clicked.connect(self.playNextSong)
+        self.ui.pushButton_previous.clicked.connect(self.playPrevSong)
 
     def show_dialog(self):
-<<<<<<< HEAD
-        result = str(QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
+        songspaths = str(QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
 
         # При отмене диалога, результатом будет пустая строка
-        if result == '':
+        if songspaths == '':
             return
 
-        self.alist, self.songs_names = songs.get_songs_list(result)
+        MyWindow.player.addNewSongs(songspaths)
 
-        print(self.alist)
+        self.updateList()
 
+    def closeEvent(self, event):
+        # Закрываем(убиваем процесс) плеер pygame.mixer
+        AudioPlayer.stop_playback()
+        can_exit = True
+        if can_exit:
+            event.accept() # Let the window close
+        else:
+            event.ignore()
+
+    def updateList(self):
+        """Обновляет список песен в правой части плеера."""
         # Создаём модель данных для ListView
         model = QStandardItemModel()
         self.ui.listView_songs.setModel(model)
 
         # Добавляем данные в модель
-        for song in self.songs_names:
+        for song in MyWindow.player.playList.getSongsNames():
             item = QStandardItem(song)
             model.appendRow(item)
-=======
-        path_to_folder = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
-        self.alist = songs.get_songs_list(path_to_folder)
-
-        print (self.alist)
->>>>>>> play-sound-realisation
-
-    def play(self):
-        # Если список не пустой и песни не играют
-        if (self.alist != []) & (not self.playing):
-<<<<<<< HEAD
-            self.start_playing()
-=======
-            self.playing = True
->>>>>>> play-sound-realisation
-            songs.play_song(self.alist)
-
-
-    def pause_unpause(self):
-<<<<<<< HEAD
-        # Если список не пустой и песня играет
-=======
-        # Если список не пустой
->>>>>>> play-sound-realisation
-        if (self.alist != []):
-            self.playing = False
-            songs.Pause.toggle()
-
-    def next(self):
-        if self.alist != []:
-<<<<<<< HEAD
-            # Сразу воспроизводится
-            self.start_playing()
-=======
-            self.playing = True
->>>>>>> play-sound-realisation
-            songs.song_next(self.alist)
-
-    def previous(self):
-        if self.alist != []:
-<<<<<<< HEAD
-            # Сразу воспроизводится
-            self.start_playing()
-            songs.song_previous(self.alist)
 
     def closeEvent(self, event):
         # Закрываем(убиваем процесс) плеер pygame.mixer
@@ -116,15 +71,50 @@ class mywindow(QtWidgets.QDialog):
         can_exit = True
         if can_exit:
             event.accept() # Let the window close
-        else:
-            event.ignore()
 
-    def start_playing(self):
-        self.playing = True
-        # Если до этого была нажата кнопка паузы - отжимаем её
-        if self.ui.pushButton_pause.isChecked():
-            self.ui.pushButton_pause.toggle()
-            songs.Pause.toggle()
+    # Взаимодействие с плеером
+    def savePlayer(self):
+        MyWindow.player.savePlayList()
+
+    def loadPlayer(self):
+        MyWindow.player.loadPlayList()
+        self.updateList()
+
+    def playNextSong(self):
+        MyWindow.player.stop_playback()
+        MyWindow.player.next()
+        MyWindow.player.play()
+
+    def playPrevSong(self):
+        MyWindow.player.stop_playback()
+        MyWindow.player.previous()
+        MyWindow.player.play()
+
+    def playStop(self):
+        icon2 = QIcon()
+        icon2.addPixmap(QPixmap("icons/control.png"), QIcon.Normal, QIcon.Off)
+        self.ui.pushButton_play.setIcon(icon2)
+        self.ui.pushButton_play.setText("&Play")
+        self.ui.pushButton_play.clicked.disconnect()
+        self.ui.pushButton_play.clicked.connect(self.playStart)
+        QMainWindow.update(self)
+        MyWindow.player.pause()
+
+    def playStart(self):
+        if MyWindow.player.IsEmpty(): return
+        icon1 = QIcon()
+        icon1.addPixmap(QPixmap("icons/control-pause.png"), QIcon.Normal, QIcon.Off)
+        self.ui.pushButton_play.setIcon(icon1)
+        self.ui.pushButton_play.setText("&Pause")
+        self.ui.pushButton_play.clicked.disconnect()
+        self.ui.pushButton_play.clicked.connect(self.playStop)
+        QMainWindow.update(self)
+
+        if MyWindow.player.playing:
+            MyWindow.player.unpause()
+        else:
+            MyWindow.player.play()
+
 
 
 
@@ -132,20 +122,6 @@ app = QApplication(sys.argv)
 app.setWindowIcon(QIcon('./icons/hand-horns.png'))
 window = MyWindow()
 window.show()
-=======
-            self.playing = True
-            songs.song_previous(self.alist)
-
-
-app = QtWidgets.QApplication([])
-application = mywindow()
-application.ui.pushButton_openf.clicked.connect(application.show_dialog)
-application.ui.pushButton_play.clicked.connect(application.play)
-application.ui.pushButton_stop.clicked.connect(application.pause_unpause)
-application.ui.pushButton_next.clicked.connect(application.next)
-application.ui.pushButton_previous.clicked.connect(application.previous)
-application.show()
->>>>>>> play-sound-realisation
 
 sys.exit(app.exec())
 
