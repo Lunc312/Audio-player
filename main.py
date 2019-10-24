@@ -8,7 +8,7 @@ import sys
 
 import songs
 
-__version__ = 0.1.1
+__version__ = "0.1.1"
 
 
 class MyWindow(QMainWindow):
@@ -24,10 +24,10 @@ class MyWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # Подключаем к QAction функцию и hotkey???
+        # События верхнего меню
         self.ui.actionOpen_Directory.triggered.connect(self.show_dialog)
-        self.ui.actionSave_current_AudioPlayer.triggered.connect(self.savePlayer)
-        self.ui.actionLoad_AudioPlayer.triggered.connect(self.loadPlayer)
+        self.ui.action_save_playlist.triggered.connect(self.savePlayer)
+        self.ui.action_load_last_playlist.triggered.connect(self.loadPlayer)
 
         self.ui.actionOpen_Directory.setShortcut( QKeySequence("Ctrl+o") )
 
