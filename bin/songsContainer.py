@@ -6,6 +6,9 @@ class PlayList(Pickler):
     def __init__(self, songsPaths=[]):
         self.songsPaths = songsPaths.copy()
         self.currentTrack = 0
+        self.name = "MyPlayList"
+
+    # Adding, removing, song, updating playlist
     def append(self, newSong):
         if isfile(newSong):
             self.songsPaths.append(newSong)
@@ -23,9 +26,14 @@ class PlayList(Pickler):
         elif len(newSongs) == 1:
             self.append(list(newSongs)[0])
         else:
-            pass
+            print("Добавление пустого списка")
     def removeSong(self, index):
         self.songsPaths.pop(index)
+    def addSongsFromPath(self, path):
+        songsPaths = [join(path, sp) for sp in os.listdir(path=path) if ".mp3" in sp]
+        self.songsPaths.extend(songsPaths)
+
+    # Получение доп информации
     def getSongsNames(self):
         names = []
         for p in self.songsPaths:
@@ -33,9 +41,10 @@ class PlayList(Pickler):
             if tail:
                 names.append(tail)
         return names
-    def addSongsFromPath(self, path):
-        songsPaths = [join(path, sp) for sp in os.listdir(path=path) if ".mp3" in sp]
-        self.songsPaths.extend(songsPaths)
+    def isEmpty(self):
+        if self.songsPaths == []:
+            return True
+        else: return False
     def len(self):
         return len(self.songsPaths)
     def getTrack(self, index=None):

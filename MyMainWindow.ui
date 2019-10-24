@@ -85,20 +85,6 @@ Soon...</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_pause">
-        <property name="text">
-         <string>Pause</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/control-pause.png</normaloff>icons/control-pause.png</iconset>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="pushButton_play">
         <property name="text">
          <string>Play</string>
