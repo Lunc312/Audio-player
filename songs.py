@@ -95,3 +95,9 @@ def stop_playback():
     running = False
     mixer.music.set_endevent(pygame.QUIT)
     pygame.mixer.music.stop()
+
+def exit_from_player():
+    """Закрывает плеер. Метод необходимо присоединить
+    к событию CloseWindow."""
+    # Но я пока не понял как. Fix it!!!!!
+    pygame.quit()

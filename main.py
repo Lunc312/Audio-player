@@ -8,6 +8,7 @@ import sys
 import songs
 
 
+<<<<<<< HEAD
 class MyWindow(QMainWindow):
     # Список путей к трекам
     alist = []
@@ -21,6 +22,17 @@ class MyWindow(QMainWindow):
 
         # Прикрепляем макет из Qt Designer
         self.ui = Ui_MainWindow()
+=======
+class mywindow(QtWidgets.QDialog):
+    # Список путей к трекам
+    alist = []
+    # Была нажата кнопка play и музыка играет? True-  Да, False - Нет
+    playing:bool = False
+
+    def __init__(self):
+        super(mywindow, self).__init__()
+        self.ui = Ui_Dialog()
+>>>>>>> play-sound-realisation
         self.ui.setupUi(self)
 
         # Подключаем к QAction функцию и hotkey???
@@ -34,6 +46,7 @@ class MyWindow(QMainWindow):
         self.ui.pushButton_previous.clicked.connect(self.previous)
 
     def show_dialog(self):
+<<<<<<< HEAD
         result = str(QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
 
         # При отмене диалога, результатом будет пустая строка
@@ -52,28 +65,47 @@ class MyWindow(QMainWindow):
         for song in self.songs_names:
             item = QStandardItem(song)
             model.appendRow(item)
+=======
+        path_to_folder = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
+        self.alist = songs.get_songs_list(path_to_folder)
+
+        print (self.alist)
+>>>>>>> play-sound-realisation
 
     def play(self):
         # Если список не пустой и песни не играют
         if (self.alist != []) & (not self.playing):
+<<<<<<< HEAD
             self.start_playing()
+=======
+            self.playing = True
+>>>>>>> play-sound-realisation
             songs.play_song(self.alist)
 
 
     def pause_unpause(self):
+<<<<<<< HEAD
         # Если список не пустой и песня играет
+=======
+        # Если список не пустой
+>>>>>>> play-sound-realisation
         if (self.alist != []):
             self.playing = False
             songs.Pause.toggle()
 
     def next(self):
         if self.alist != []:
+<<<<<<< HEAD
             # Сразу воспроизводится
             self.start_playing()
+=======
+            self.playing = True
+>>>>>>> play-sound-realisation
             songs.song_next(self.alist)
 
     def previous(self):
         if self.alist != []:
+<<<<<<< HEAD
             # Сразу воспроизводится
             self.start_playing()
             songs.song_previous(self.alist)
@@ -100,6 +132,20 @@ app = QApplication(sys.argv)
 app.setWindowIcon(QIcon('./icons/hand-horns.png'))
 window = MyWindow()
 window.show()
+=======
+            self.playing = True
+            songs.song_previous(self.alist)
+
+
+app = QtWidgets.QApplication([])
+application = mywindow()
+application.ui.pushButton_openf.clicked.connect(application.show_dialog)
+application.ui.pushButton_play.clicked.connect(application.play)
+application.ui.pushButton_stop.clicked.connect(application.pause_unpause)
+application.ui.pushButton_next.clicked.connect(application.next)
+application.ui.pushButton_previous.clicked.connect(application.previous)
+application.show()
+>>>>>>> play-sound-realisation
 
 sys.exit(app.exec())
 
