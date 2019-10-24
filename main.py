@@ -8,7 +8,7 @@ import sys
 
 import songs
 
-__version__ = 0.1
+__version__ = 0.1.1
 
 
 class MyWindow(QMainWindow):
