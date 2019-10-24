@@ -8,6 +8,8 @@ import sys
 
 import songs
 
+__version__ = 0.1
+
 
 class MyWindow(QMainWindow):
     # Плеер: список песен, настройки, логика работы
