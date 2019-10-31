@@ -1,3 +1,5 @@
+"""Класс плеера."""
+
 import pygame
 from bin.songsContainer import PlayList
 from bin.playerSettings import PlayerSettings
@@ -55,11 +57,13 @@ class AudioPlayer():
 
     # PlayList
     def addNewSongs(self, newSongs):
+        """Добавляет песни в плейлист:
+        1. аргумент это путь к директории
+        2. аргумент это список из путей к песням
+        3. аргумент это путь к конкретной песне"""
         self.playList.add(newSongs)
     def removeSong(self, index):
         self.playList.removeSong(index)
-    def saveCurrentPlayList(self):
-        self.playList.save()
     def savePlayList(self):
         self.playList.save()
     def loadPlayList(self, playListName=""):
@@ -68,12 +72,15 @@ class AudioPlayer():
         else:
             self.playList = PlayList.load(playListName)
     def IsEmpty(self):
+        """Узнает пустой ли плеер."""
         return self.playList.isEmpty()
 
     # Settings
     def volumeUp(self, value):
+        # Нужно изменить реализацию через mixer.music.set_volume
         AudioPlayer.settings.volumeUp(value)
     def volumeDown(self, value):
+        # Нужно оставить 1 метод
         AudioPlayer.settings.volumeDown(value)
 
     # Hide functions

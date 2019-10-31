@@ -29,6 +29,7 @@ class MyWindow(QMainWindow):
         self.ui.action_save_playlist.triggered.connect(self.savePlayer)
         self.ui.action_load_last_playlist.triggered.connect(self.loadPlayer)
 
+        # Хоткей для открытия директории
         self.ui.actionOpen_Directory.setShortcut( QKeySequence("Ctrl+o") )
 
         # Подключаем к слотам кнопок функции
@@ -37,13 +38,14 @@ class MyWindow(QMainWindow):
         self.ui.pushButton_previous.clicked.connect(self.playPrevSong)
 
     def show_dialog(self):
-        songspaths = str(QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
+        # Путь к директории с музыкой
+        directory_path = str(QFileDialog.getExistingDirectory(self, "Выберите папку с музыкой"))
 
         # При отмене диалога, результатом будет пустая строка
-        if songspaths == '':
+        if directory_path == '':
             return
 
-        MyWindow.player.addNewSongs(songspaths)
+        MyWindow.player.addNewSongs(directory_path)
 
         self.updateList()
 
